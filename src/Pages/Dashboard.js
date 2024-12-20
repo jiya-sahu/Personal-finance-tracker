@@ -41,7 +41,7 @@ function Dashboard() {
   useEffect(()=>{
     //get all documents 
     fetchTransactions();
-  },[])
+  },[user])
 
   async function fetchTransactions() {
     setLoading(true);

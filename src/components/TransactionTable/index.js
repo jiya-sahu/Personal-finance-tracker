@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { Select, Table } from "antd";
+import { Flex, Select, Table } from "antd";
 import { Radio }from "antd";
+import searchimg from "../../assets/search.svg"
+import './styles.css'
+import Button from "../Button/index";
+
 
 const TransactionTable = ({ transactions }) => {
   const [search, setSearch] = useState("");
@@ -59,13 +63,16 @@ const TransactionTable = ({ transactions }) => {
           marginBottom: "1rem",
         }}
       >
-        <div>
+        <div className="input-flex">
+           <img src={searchimg}/>
+         
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="search by name"
 
           />
+         
         </div>
 
         <Select  onChange={(value) => setTypefilter(value)} value={typeFilter} allowClear>
@@ -74,16 +81,45 @@ const TransactionTable = ({ transactions }) => {
           <Select.Option value="expense">Expense</Select.Option>
         </Select>
 
+        </div>
 
+        
+          <div
+          style={
+            {
+               display:"flex",
+               justifyContent:"space-between",
+              alignItems: "center", 
+              marginBottom:"1rem",
+              padding:"1rem"
+            }
+          }>
+         
+          <h2>My Transactions</h2>
+         
+        <div>
         <Radio.Group onChange={(e)=>setSortkey(e.target.value)} value={sortKey}>
           <Radio.Button value="">No sort</Radio.Button>
           <Radio.Button value="date">Sort by date</Radio.Button>
           <Radio.Button value="amount">Sort by Amount</Radio.Button>
         </Radio.Group>
+        </div>
+        <div
+         style={{
+          display:"flex",
+          justifyContent:"center",
+          gap: "1rem",
+          width: "400px"
+         }}>
+           <button className="btn">Export to CSV</button>
+            <button className="btn">Import from CSV</button>
+        </div>
+       
+        </div>
 
-      </div>
-
-      <Table dataSource={sortedTransactions} columns={columns} />
+       <Table dataSource={sortedTransactions} columns={columns} />
+      
+    
     </>
   );
 };

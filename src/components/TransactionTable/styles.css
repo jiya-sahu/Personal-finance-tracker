@@ -1,0 +1,17 @@
+.input-flex{
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    width: 100%;
+    box-shadow: 0px 0px 30px 8px rgba(227, 227, 227, 0.75);
+}
+
+.input-flex input{
+    width: 100%;
+    padding: 0.5rem;
+    border: 0;
+}
+
+.input-flex input :focus{
+    outline: none;
+}
