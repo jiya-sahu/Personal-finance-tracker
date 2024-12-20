@@ -10,7 +10,7 @@ import {
 
 function AddIncomeModal({
   isIncomeModalVisible,
-  handleIncomeCancel,
+  handleIncomeModal,
   onFinish,
 }) {
   const [form] = Form.useForm();
@@ -19,7 +19,7 @@ function AddIncomeModal({
       style={{ fontWeight: 600 }}
       title="Add Income"
       visible={isIncomeModalVisible}
-      onCancel={handleIncomeCancel}
+      onCancel={handleIncomeModal}
       footer={null}
     >
       <Form
