@@ -1,0 +1,11 @@
+.charts-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    height: auto;
+    padding: 2rem;
+    box-shadow: 0px 0px 30px 8px rgba(226, 226, 225, 0.752);
+    margin: 2rem;
+}
+

@@ -10,6 +10,8 @@ import { auth,db } from "../Firebase";
 import { toast } from "react-toastify";
 import TransactionTable from "../components/TransactionTable";
 import { Input } from "antd";
+import Charts from "../components/Charts";
+import NoTransactions from "../components/NoTransactions";
 
 function Dashboard() {
 
@@ -114,7 +116,10 @@ function Dashboard() {
       setExpense(expenseTotal);
       setBalance(incomeTotal - expenseTotal);
     }
-
+    let sortedTransactions = transactions.sort((a,b)=>{
+      return new Date(a.date)-new Date(b.date);
+      
+    })
   return (
     (loading?<p>Loading...</p>: <>
       <Header />
@@ -125,6 +130,7 @@ function Dashboard() {
         showExpenseModal={showExpenseModal}
         showIncomeModal={showIncomeModal}
       />
+    {transactions && transactions.length !=0?<Charts sortedTransactions = {sortedTransactions}/>:<NoTransactions/>}
       <AddExpenseModal
         isExpenseModalVisible={isExpenseModalVisible}
         handleExpenseModal={handleExpenseModal}
@@ -136,7 +142,7 @@ function Dashboard() {
         onFinish={onFinish}
       />
     
-      <TransactionTable transactions={transactions}></TransactionTable>
+      <TransactionTable transactions={transactions} addTransaction={addTransaction} fetchTransactions={fetchTransactions}></TransactionTable>
     </>)
     
   );
