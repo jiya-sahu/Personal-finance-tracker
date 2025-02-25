@@ -1,5 +1,5 @@
 import React from 'react'
-import { Line ,Pie} from '@ant-design/charts';
+import { Line} from '@ant-design/charts';
 import './styles.css'
 import moment from "moment";
 function Charts({sortedTransactions}) {

@@ -156,7 +156,17 @@ const TransactionTable = ({ transactions ,addTransaction,fetchTransactions }) =>
           width: "400px"
          }}>
            <button className="btn" onClick={exportToCsv}>Export to CSV</button>
-            <button className="btn" onClick={importFromCsv}>Import from CSV</button>
+           <label for="file-csv" className="btn btn-blue">
+              Import from CSV
+            </label>
+            <input
+              onChange={importFromCsv}
+              id="file-csv"
+              type="file"
+              accept=".csv"
+              required
+              style={{ display: "none" }}
+            />
         </div>
        
         </div>
