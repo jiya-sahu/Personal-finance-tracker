@@ -10,7 +10,7 @@ import {
 import { auth, db ,provider} from "../../Firebase.js";
 import { toast } from "react-toastify";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup} from "firebase/auth";
 
 function SignupSigninComponent() {
   const [name, setName] = useState("");

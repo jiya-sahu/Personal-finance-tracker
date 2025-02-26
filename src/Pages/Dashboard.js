@@ -39,29 +39,39 @@ function Dashboard() {
   };
 
 
-  async function fetchTransactions() {
-    setLoading(true);
-    if (user) {
-      const q = query(collection(db, `users/${user.uid}/transactions`));
-      const querySnapshot = await getDocs(q);
-      let transactionsArray = [];
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        transactionsArray.push(doc.data());
-      });
-      setTransactions(transactionsArray);
-      console.log(transactionsArray);
-      
-      toast.success("Transactions Fetched!");
-    }
-    setLoading(false);
-  }
 
 
-  useEffect(()=>{
-    //get all documents 
-    fetchTransactions();
-  },[user])
+ 
+    useEffect(() => { 
+      const fetchTransactions = async () => {
+        setLoading(true);
+    
+        if (user) {
+          try {
+            const q = query(collection(db, `users/${user.uid}/transactions`));
+            const querySnapshot = await getDocs(q);
+    
+            let transactionsArray = [];
+            querySnapshot.forEach((doc) => {
+              transactionsArray.push(doc.data());
+            });
+    
+            setTransactions(transactionsArray);
+            console.log(transactionsArray);
+            toast.success("Transactions Fetched!");
+          } catch (error) {
+            console.error("Error fetching transactions:", error);
+            toast.error("Failed to fetch transactions!");
+          }
+        }
+    
+        setLoading(false);
+      };
+    
+      fetchTransactions();  // Call the function inside useEffect
+    
+    }, [user]);  // Runs when `user` changes
+ 
 
  
   const onFinish = (values,type)=>{
@@ -100,22 +110,23 @@ function Dashboard() {
 
 
   
-  function calculateBalance() {
-    let incomeTotal = 0;
-    let expenseTotal = 0;
-    transactions.forEach((transaction)=>{
-      if(transaction.type === "income"){
-        incomeTotal += transaction.amount;
-      }else{
-        expenseTotal += transaction.amount;
-      }
-    })
-
-    setIncome(incomeTotal);
-    setExpense(expenseTotal);
-    setBalance(incomeTotal - expenseTotal);
-  }
+ 
   useEffect(()=>{
+    function calculateBalance() {
+      let incomeTotal = 0;
+      let expenseTotal = 0;
+      transactions.forEach((transaction)=>{
+        if(transaction.type === "income"){
+          incomeTotal += transaction.amount;
+        }else{
+          expenseTotal += transaction.amount;
+        }
+      })
+  
+      setIncome(incomeTotal);
+      setExpense(expenseTotal);
+      setBalance(incomeTotal - expenseTotal);
+    }
     calculateBalance();
   },[transactions])
 
