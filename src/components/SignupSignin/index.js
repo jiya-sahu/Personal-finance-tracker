@@ -54,8 +54,8 @@ function SignupSigninComponent() {
   function signupUsingEmail() {
     setLoading(true);
     console.log(`Name : ${name} Email :${email} Password:${password} `);
-    if (name != "" && email != "" && password != "" && confirmPassword != "") {
-      if (password == confirmPassword) {
+    if (name !== "" && email !== "" && password !== "" && confirmPassword !== "") {
+      if (password === confirmPassword) {
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             // Signed up
@@ -73,7 +73,7 @@ function SignupSigninComponent() {
             navigate("/dashboard");
           })
           .catch((error) => {
-            const errorCode = error.code;
+            
             const errorMessage = error.message;
             toast.error(errorMessage);
             setLoading(false);
@@ -92,10 +92,10 @@ function SignupSigninComponent() {
     try {
       signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
+        //  This gives you a Google Access Token. You can use it to access the Google API.
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+        //  The signed-in user info.
         const user = result.user;
         console.log("User>>", user);
         // IdP data available using getAdditionalUserInfo(result)
@@ -105,13 +105,13 @@ function SignupSigninComponent() {
         
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        //  Handle Errors here.
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        //  The email of the user's account used.
+        // const email = error.customData.email;
+        //  The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error);
         setLoading(false);
         
       });
@@ -127,7 +127,7 @@ function SignupSigninComponent() {
   
   function loginUsingEmail() {
     setLoading(true);
-    if (email != "" && password != "") {
+    if (email !== "" && password !== "") {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
@@ -138,7 +138,7 @@ function SignupSigninComponent() {
           navigate("/dashboard");
         })
         .catch((error) => {
-          const errorCode = error.code;
+         
           const errorMessage = error.message;
           toast.error(errorMessage);
           setLoading(false);

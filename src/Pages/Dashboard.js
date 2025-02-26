@@ -9,7 +9,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth,db } from "../Firebase";
 import { toast } from "react-toastify";
 import TransactionTable from "../components/TransactionTable";
-import { Input } from "antd";
 import Charts from "../components/Charts";
 import NoTransactions from "../components/NoTransactions";
 
@@ -40,11 +39,6 @@ function Dashboard() {
   };
 
 
-  useEffect(()=>{
-    //get all documents 
-    fetchTransactions();
-  },[user])
-
   async function fetchTransactions() {
     setLoading(true);
     if (user) {
@@ -63,6 +57,13 @@ function Dashboard() {
     setLoading(false);
   }
 
+
+  useEffect(()=>{
+    //get all documents 
+    fetchTransactions();
+  },[user])
+
+ 
   const onFinish = (values,type)=>{
     const newTransaction = {
     type : type,
@@ -97,25 +98,27 @@ function Dashboard() {
     }
   }
 
+
+  
+  function calculateBalance() {
+    let incomeTotal = 0;
+    let expenseTotal = 0;
+    transactions.forEach((transaction)=>{
+      if(transaction.type === "income"){
+        incomeTotal += transaction.amount;
+      }else{
+        expenseTotal += transaction.amount;
+      }
+    })
+
+    setIncome(incomeTotal);
+    setExpense(expenseTotal);
+    setBalance(incomeTotal - expenseTotal);
+  }
   useEffect(()=>{
     calculateBalance();
   },[transactions])
 
-    function calculateBalance() {
-      let incomeTotal = 0;
-      let expenseTotal = 0;
-      transactions.forEach((transaction)=>{
-        if(transaction.type === "income"){
-          incomeTotal += transaction.amount;
-        }else{
-          expenseTotal += transaction.amount;
-        }
-      })
-
-      setIncome(incomeTotal);
-      setExpense(expenseTotal);
-      setBalance(incomeTotal - expenseTotal);
-    }
     let sortedTransactions = transactions.sort((a,b)=>{
       return new Date(a.date)-new Date(b.date);
       
@@ -130,7 +133,7 @@ function Dashboard() {
         showExpenseModal={showExpenseModal}
         showIncomeModal={showIncomeModal}
       />
-    {transactions && transactions.length !=0?<Charts sortedTransactions = {sortedTransactions}/>:<NoTransactions/>}
+    {transactions && transactions.length !== 0?<Charts sortedTransactions = {sortedTransactions}/>:<NoTransactions/>}
       <AddExpenseModal
         isExpenseModalVisible={isExpenseModalVisible}
         handleExpenseModal={handleExpenseModal}

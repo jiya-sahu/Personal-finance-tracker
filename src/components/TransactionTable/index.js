@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Select, Table } from "antd";
+import { Select, Table } from "antd";
 import { Radio }from "antd";
 import searchimg from "../../assets/search.svg"
 import './styles.css'
@@ -48,9 +48,9 @@ const TransactionTable = ({ transactions ,addTransaction,fetchTransactions }) =>
   );
 
   let sortedTransactions = filteredTransaction.sort((a,b)=>{
-    if(sortKey == "date"){
+    if(sortKey === "date"){
       return new Date(a.date) - new Date(b.date);
-    }else if(sortKey == "amount"){
+    }else if(sortKey === "amount"){
       return a.amount - b.amount;
     }else return b;
   })
@@ -108,7 +108,7 @@ const TransactionTable = ({ transactions ,addTransaction,fetchTransactions }) =>
         }}
       >
         <div className="input-flex">
-           <img src={searchimg}/>
+           <img src={searchimg} alt="searchimg"/>
          
           <input
             value={search}

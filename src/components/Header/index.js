@@ -41,7 +41,7 @@ function Header() {
         gap:"0.5rem",
         alignItems:"center"
       }}>
-        <img src={user.photoURL? user.photoURL : userImg} 
+        <img src={user.photoURL? user.photoURL : userImg} alt='userImg' 
         style= {{height:"1 rem" ,width:"1 rem", borderRadius : "50%"}}/>
       <p className='logo link' onClick={logoutfunc}>Logout</p>
       </div>}

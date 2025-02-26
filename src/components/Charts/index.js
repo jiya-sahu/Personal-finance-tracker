@@ -1,7 +1,6 @@
 import React from 'react'
 import { Line} from '@ant-design/charts';
 import './styles.css'
-import moment from "moment";
 function Charts({sortedTransactions}) {
    
   let dataitem = sortedTransactions.map((item)=>{
@@ -18,7 +17,7 @@ function Charts({sortedTransactions}) {
   };
 
  
-  let charts;
+
   
 
       return(
