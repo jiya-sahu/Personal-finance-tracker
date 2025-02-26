@@ -72,7 +72,31 @@ function Dashboard() {
     
     }, [user]);  // Runs when `user` changes
  
-
+    const fetchTransactions = async () => {
+      setLoading(true);
+  
+      if (user) {
+        try {
+          const q = query(collection(db, `users/${user.uid}/transactions`));
+          const querySnapshot = await getDocs(q);
+  
+          let transactionsArray = [];
+          querySnapshot.forEach((doc) => {
+            transactionsArray.push(doc.data());
+          });
+  
+          setTransactions(transactionsArray);
+          console.log(transactionsArray);
+          toast.success("Transactions Fetched!");
+        } catch (error) {
+          console.error("Error fetching transactions:", error);
+          toast.error("Failed to fetch transactions!");
+        }
+      }
+  
+      setLoading(false);
+    };
+  
  
   const onFinish = (values,type)=>{
     const newTransaction = {
