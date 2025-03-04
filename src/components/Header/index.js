@@ -34,7 +34,7 @@ function Header() {
   }
   return (
     <div className='navbar'>
-      <p className='logo'>Financely</p>
+      <p className='logo'>FinTrack</p>
       {user && 
       <div style={{
         display:"flex",
